@@ -1,9 +1,8 @@
 proftpd:
-  images: blueapple/alpine_proftp
+  images: clementperon/docker-proftpd
   volumes:
     - ./proftpd.conf:/usr/local/etc/proftpd.conf
     - ./data/ftp:/data
   ports:
-    - "20:20"
-    - "21:21"
-    - "60000-60100:60000-60100"
+    - "990:990"
+    - "49152-49407:49152-49407"
