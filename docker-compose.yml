@@ -1,8 +1,11 @@
-proftpd:
-  images: clementperon/docker-proftpd
-  volumes:
-    - ./proftpd.conf:/usr/local/etc/proftpd.conf
-    - ./data/ftp:/data
-  ports:
-    - "990:990"
-    - "49152-49407:49152-49407"
+version: '2'
+services:
+  proftpd:
+    image: clementperon/proftpd
+    container_name: proftpd
+    volumes:
+      - ./proftpd.conf:/usr/local/etc/proftpd.conf
+      - ./data/ftp:/data
+    ports:
+      - "990:990"
+      - "49152-49407:49152-49407"
