@@ -5,7 +5,8 @@ ENV PROFTPD_VERSION 1.3.6c
 # persistent deps
 ENV PERSISTENT_DEPS \
   ca-certificates \
-  curl
+  curl \
+  perl
 
 # build deps
 ENV BUILD_DEPS \
