@@ -26,10 +26,18 @@ RUN set -x \
     && rm proftpd.tgz
 
 RUN cd proftpd-${PROFTPD_VERSION} && \
-    ./configure --sysconfdir=/etc/proftpd --localstatedir=/var/proftpd --with-modules=mod_tls --enable-openssl --disable-ident && \
+    ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/run --with-modules=mod_tls --enable-openssl --disable-ident && \
     make && \
     make install
 
-EXPOSE 990 49152-49407
+# Change default proftpd conf
+ADD proftpd.conf /etc/proftpd.conf
 
-CMD ["/usr/local/sbin/proftpd", "-n", "-c", "/usr/local/etc/proftpd.conf" ]
+# Add entry point script
+ADD init.sh /
+RUN chmod a+x /init.sh
+
+# ports and volume
+EXPOSE 990 49152-49407
+VOLUME [ "/config" ]
+ENTRYPOINT [ "/init.sh" ]

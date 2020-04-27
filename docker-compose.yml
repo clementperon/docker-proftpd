@@ -4,8 +4,9 @@ services:
     image: clementperon/proftpd
     container_name: proftpd
     volumes:
-      - ./proftpd.conf:/usr/local/etc/proftpd.conf
+      - ./proftpd/config:/config
       - ./data/ftp:/data
+      - certificates:/etc/letsencrypt:ro
     ports:
       - "990:990"
       - "49152-49407:49152-49407"
