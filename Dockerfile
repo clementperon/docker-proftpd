@@ -42,6 +42,9 @@ ADD proftpd.conf /etc/proftpd.conf
 ADD init.sh /
 RUN chmod a+x /init.sh
 
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stderr /var/ftpd/tls.log
+
 # ports and volume
 EXPOSE 990 49152-49407
 VOLUME [ "/config" ]
