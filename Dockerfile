@@ -43,7 +43,8 @@ ADD init.sh /
 RUN chmod a+x /init.sh
 
 # forward request and error logs to docker log collector
-RUN ln -sf /dev/stderr /var/ftpd/tls.log
+RUN mkdir -p /var/log/proftpd && \
+    ln -sf /dev/stderr /var/log/proftpd/tls.log
 
 # ports and volume
 EXPOSE 990 49152-49407
