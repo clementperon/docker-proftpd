@@ -16,6 +16,7 @@ ENV BUILD_DEPS \
   openssl-dev \
   make
 
+# Prepare source
 RUN set -x \
     && apk add --no-cache --virtual .persistent-deps \
         $PERSISTENT_DEPS \
@@ -25,10 +26,14 @@ RUN set -x \
     && tar -xf proftpd.tgz \
     && rm proftpd.tgz
 
+# Build
 RUN cd proftpd-${PROFTPD_VERSION} && \
     ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/run --with-modules=mod_tls --enable-openssl --disable-ident && \
     make && \
     make install
+
+# Remove
+RUN cd .. && rm -rf proftpd-${PROFTPD_VERSION}
 
 # Change default proftpd conf
 ADD proftpd.conf /etc/proftpd.conf
