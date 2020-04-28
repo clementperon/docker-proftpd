@@ -44,6 +44,8 @@ RUN chmod a+x /init.sh
 
 # forward request and error logs to docker log collector
 RUN mkdir -p /var/log/proftpd && \
+    ln -sf /dev/stdout /var/log/proftpd/transfer.log && \
+    ln -sf /dev/stderr /var/log/proftpd/system.log && \
     ln -sf /dev/stderr /var/log/proftpd/tls.log
 
 # ports and volume
